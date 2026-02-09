@@ -72,7 +72,7 @@ export const MODULES: Record<string, AppModule> = {
         id: 'stockCount',
         name: 'Sayım Modülü',
         description: 'Stok Sayım ve Düzeltme',
-        isEnabled: true,
+        isEnabled: false,
         path: '/stock-count',
         icon: ClipboardList,
         roleAccess: ['admin', 'store_manager', 'cashier']
@@ -81,7 +81,7 @@ export const MODULES: Record<string, AppModule> = {
         id: 'reports',
         name: 'Raporlar',
         description: 'Satış ve Stok Analizleri',
-        isEnabled: true,
+        isEnabled: false,
         path: '/reports',
         icon: BarChart3,
         roleAccess: ['admin', 'store_manager']
@@ -104,7 +104,7 @@ export const MODULES: Record<string, AppModule> = {
         id: 'expenses',
         name: 'Gider Yönetimi',
         description: 'Masraf ve Personel Giderleri',
-        isEnabled: true,
+        isEnabled: false,
         path: '/expenses',
         icon: Wallet,
         roleAccess: ['admin', 'store_manager']
@@ -113,7 +113,7 @@ export const MODULES: Record<string, AppModule> = {
         id: 'loyalty',
         name: 'Sadakat Programı',
         description: 'Puan ve Müşteri Sadakati',
-        isEnabled: true,
+        isEnabled: false,
         path: '/loyalty',
         icon: Gift,
         roleAccess: ['admin', 'store_manager']
@@ -122,7 +122,7 @@ export const MODULES: Record<string, AppModule> = {
         id: 'labelPrinting',
         name: 'Etiket Basımı',
         description: 'Raf ve Barkod Etiketleri',
-        isEnabled: true,
+        isEnabled: false,
         path: '/labels',
         icon: Tag,
         roleAccess: ['admin', 'store_manager']

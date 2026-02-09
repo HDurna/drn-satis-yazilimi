@@ -264,9 +264,41 @@ export default function LicensePage() {
                         </div>
                         <DialogFooter>
                             <Button onClick={() => {
-                                // Tüm modülleri aktive ediyormuş gibi yapalım şimdilik
-                                handleActivateAllTrials(); // Demo logic
-                                setIsKeyModalOpen(false);
+                                const key = licenseKey.trim().toUpperCase();
+                                // Basit bir doğrulama algoritması (DRN-YIL-XXXX)
+                                // Gerçek dünyada bu sunucu tabanlı olmalı.
+                                const currentYear = new Date().getFullYear();
+                                const isValid = key.startsWith("DRN-") && key.length > 10;
+
+                                if (isValid) {
+                                    // Tüm modülleri "PRO" olarak aç
+                                    setTrialProcessing(true);
+                                    const endDate = new Date();
+                                    endDate.setFullYear(endDate.getFullYear() + 1);
+
+                                    const updates = Object.values(MODULES).map(mod => ({
+                                        module_key: mod.id,
+                                        is_enabled: true,
+                                        license_type: 'PRO',
+                                        trial_start_date: null,
+                                        expires_at: endDate.toISOString(),
+                                        updated_at: new Date().toISOString()
+                                    }));
+
+                                    supabase.from('module_states').upsert(updates, { onConflict: 'module_key' })
+                                        .then(({ error }) => {
+                                            if (error) alert("Hata: " + error.message);
+                                            else {
+                                                alert("Lisans başarıyla aktif edildi! Tüm modüller kullanımınıza açık.");
+                                                fetchModuleStates();
+                                                setIsKeyModalOpen(false);
+                                            }
+                                            setTrialProcessing(false);
+                                        });
+
+                                } else {
+                                    alert("Geçersiz Lisans Anahtarı! Lütfen kontrol ediniz.\nÖrnek Format: DRN-2025-ABCD");
+                                }
                             }}>
                                 Aktifleştir
                             </Button>
